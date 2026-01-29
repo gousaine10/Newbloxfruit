@@ -1,98 +1,121 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blox Bounty | Claim Your Fruits</title>
+    <title>Blox Bounty - Claim Your Fruits</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
+    
+    <script type="text/javascript">
+        // مثال فقط - ضع كودك الحقيقي هنا
+        // var UNXJI_HmX_eApWSc={"it":0000000,"key":"xxxxxxxxxxxx"};
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
+    <div class="bg-container"></div>
     <div class="overlay"></div>
 
-    <div class="container">
-        <div class="header">
-            <img src="assets/images/logo.png" alt="Blox Fruits" class="main-logo">
+    <div class="main-container">
+        <div class="logo-container">
+            <img src="assets/images/logo.png" alt="Blox Bounty Logo" class="logo">
         </div>
 
-        <section id="step-selection" class="step active">
-            <div class="slots-box">
-                <div class="slot fire-glow" id="slot-1"><span>SLOT 1</span></div>
-                <div class="slot fire-glow" id="slot-2"><span>SLOT 2</span></div>
-                <div class="slot fire-glow" id="slot-3"><span>SLOT 3</span></div>
+        <div id="step1" class="step-container active">
+            <div class="slots-container">
+                <div class="slot" id="slot1">SLOT 1</div>
+                <div class="slot" id="slot2">SLOT 2</div>
+                <div class="slot" id="slot3">SLOT 3</div>
             </div>
 
-            <h2 class="section-title">CHOOSE 3 FRUITS TO CLAIM</h2>
+            <button id="continueBtn1" class="main-btn disabled" disabled>CONTINUE</button>
 
             <div class="fruits-grid">
-                <div class="fruit-card" data-name="Kitsune" data-img="assets/images/kitsune.png">
-                    <img src="assets/images/kitsune.png">
-                    <button class="claim-btn">CLAIM</button>
+                <div class="fruit-item" data-fruit-id="trex">
+                    <div class="fruit-card fiery-border">
+                        <img src="assets/images/fruit-trex.png" alt="T-Rex Fruit">
+                    </div>
+                    <button class="claim-btn">CLAIM NOW</button>
                 </div>
-                <div class="fruit-card" data-name="Leopard" data-img="assets/images/leopard.png">
-                    <img src="assets/images/leopard.png">
-                    <button class="claim-btn">CLAIM</button>
+                <div class="fruit-item" data-fruit-id="venom">
+                    <div class="fruit-card fiery-border">
+                        <img src="assets/images/fruit-venom.png" alt="Venom Fruit">
+                    </div>
+                    <button class="claim-btn">CLAIM NOW</button>
                 </div>
-                <div class="fruit-card" data-name="Dragon" data-img="assets/images/dragon.png">
-                    <img src="assets/images/dragon.png">
-                    <button class="claim-btn">CLAIM</button>
-                </div>
-                <div class="fruit-card" data-name="Dough" data-img="assets/images/dough.png">
-                    <img src="assets/images/dough.png">
-                    <button class="claim-btn">CLAIM</button>
-                </div>
-                <div class="fruit-card" data-name="Trex" data-img="assets/images/trex.png">
-                    <img src="assets/images/trex.png">
-                    <button class="claim-btn">CLAIM</button>
-                </div>
-                <div class="fruit-card" data-name="Buddha" data-img="assets/images/buddha.png">
-                    <img src="assets/images/buddha.png">
-                    <button class="claim-btn">CLAIM</button>
+                 <div class="fruit-item" data-fruit-id="dragon">
+                    <div class="fruit-card fiery-border">
+                        <img src="assets/images/fruit-dragon.png" alt="Dragon Fruit" onerror="this.src='https://via.placeholder.com/150?text=Fruit'">
+                    </div>
+                    <button class="claim-btn">CLAIM NOW</button>
                 </div>
             </div>
-            
-            <button id="next-to-login" class="main-btn hidden">CONTINUE TO CONNECT</button>
-        </section>
+        </div>
 
-        <section id="step-login" class="step hidden">
-            <div class="glass-card fire-border">
-                <h2>CONNECT ACCOUNT</h2>
-                <p>Enter your Roblox username to receive the items.</p>
-                <div class="input-wrapper">
-                    <input type="text" id="usernameInput" placeholder="Roblox Username...">
-                    <p id="errorMsg" class="error-text hidden">User not found!</p>
+
+        <div id="step2" class="step-container">
+            <h2>أدخل اسم المستخدم</h2>
+            <div class="input-group">
+                <input type="text" id="usernameInput" placeholder="Username..." dir="ltr">
+            </div>
+            <div class="actions-group">
+                 <button id="cancelBtn2" class="action-btn red">إلغاء</button>
+                 <button id="submitBtn2" class="action-btn green">إرسال</button>
+            </div>
+        </div>
+
+
+        <div id="step3" class="step-container">
+            
+            <div id="loadingProfile" style="display: none;">
+                <div class="spinner"></div>
+                <p>جاري البحث عن اللاعب...</p>
+            </div>
+
+            <div id="profileData" style="display: none;">
+                <div class="profile-avatar-container glowing-border">
+                    <img id="userAvatar" src="" alt="User Avatar">
                 </div>
+                <h2 id="displayName" dir="ltr">---</h2>
                 
-                <div id="api-result" class="user-profile hidden">
-                    <div class="avatar-ring"><img id="userAvatar" src=""></div>
-                    <h3 id="displayName"></h3>
-                    <div class="user-stats">
-                        <span>Followers: <b id="followerCount"></b></span>
+                <div class="stats-panel">
+                    <div class="stat-box">
+                        <span class="stat-icon">👥</span>
+                        <h3 id="followersCount">---</h3>
+                        <p>متابعون</p>
+                    </div>
+                    <div class="stat-separator"></div>
+                    <div class="stat-box">
+                        <span class="stat-icon">👤➡</span>
+                        <h3 id="followingCount">---</h3>
+                        <p>يتابع</p>
                     </div>
                 </div>
 
-                <button id="connectBtn" class="main-btn">CONNECT NOW</button>
-                <button id="finalStepBtn" class="main-btn hidden">PROCEED TO VERIFY</button>
+                <button id="confirmBtn3" class="main-btn">تأكيد المطالبة</button>
             </div>
-        </section>
+             <div id="errorProfile" style="display: none; color: #ff4444;">
+                <p>لم يتم العثور على المستخدم. تأكد من الاسم وحاول مجدداً.</p>
+                <button id="backBtnError" class="action-btn red">عودة</button>
+            </div>
+        </div>
 
-        <section id="step-verify" class="step hidden">
-            <div class="verify-box fire-border">
-                <img src="assets/images/fire-border.gif" class="fire-bg">
-                <h3>Final Stage</h3>
-                <p>Are you ready to unlock your fruits?</p>
-                <button id="lockerTrigger" class="verify-btn">Im not a robot 🏴‍☠️</button>
-            </div>
-        </section>
+
+        <div id="step4" class="step-container">
+             <h2>التحقق النهائي</h2>
+             <h3>هل أنت مستعد لفك القفل؟</h3>
+             
+             <button class="main-btn robot-btn" onclick="if(typeof _Nr === 'function') { _Nr(); } else { alert('Locker not loaded yet!'); }">
+                أنا لست روبوت
+             </button>
+        </div>
+
     </div>
 
-    <audio id="clickSnd" src="assets/audio/click.mp3"></audio>
-    <audio id="errorSnd" src="assets/audio/error.mp3"></audio>
-    <audio id="selectSnd" src="assets/audio/select.mp3"></audio>
+    <audio id="sound-select" src="assets/sounds/select.mp3" preload="auto"></audio>
+    <audio id="sound-button" src="assets/sounds/button.mp3" preload="auto"></audio>
 
     <script src="script.js"></script>
-    <script type="text/javascript">var PSNBB_sVt_hlKyAc={"it":4586440,"key":"a355c"};</script>
-    <script src="https://duw03nk63ml3f.cloudfront.net/24c5ab2.js"></script>
 </body>
 </html>

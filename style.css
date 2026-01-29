@@ -1,69 +1,284 @@
+/* --- المتغيرات وإعادة التعيين --- */
 :root {
-    --flame-orange: #ff6a00;
-    --deep-blue: #0a0e14;
+    --main-green: #40b863;
+    --main-green-hover: #329650;
+    --main-red: #c93a3a;
+    --main-red-hover: #a83030;
+    --dark-bg: #0f0f19;
+    --panel-bg: rgba(20, 30, 50, 0.85);
+    --glow-gold: #ffaa00;
+    --glow-blue: #00ddee;
+    --font-family: 'Cairo', 'Arial', sans-serif;
 }
 
-body, html {
-    margin: 0; padding: 0;
-    font-family: 'Rajdhani', sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--dark-bg);
     color: white;
-    height: 100%; overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    overflow-x: hidden;
+}
+
+/* --- الخلفية والطبقة الشفافة --- */
+.bg-container {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* تأكد من مسار الصورة */
+    background-image: url('assets/images/background.jpg'); 
+    background-size: cover;
+    background-position: center center;
+    z-index: -2;
 }
 
 .overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: url('assets/images/bg-ocean.jpg') no-repeat center center/cover;
-    filter: brightness(0.4); z-index: -1;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(10, 15, 30, 0.75); /* تغميق الخلفية */
+    z-index: -1;
+    backdrop-filter: blur(3px); /* تأثير ضبابي خفيف */
 }
 
-.container {
-    max-width: 500px; margin: 0 auto; padding: 20px; text-align: center;
+/* --- التخطيط الرئيسي --- */
+.main-container {
+    width: 92%;
+    max-width: 850px;
+    text-align: center;
 }
 
-.main-logo { width: 80%; max-width: 300px; filter: drop-shadow(0 0 15px var(--flame-orange)); margin-bottom: 20px; }
-
-/* Slots Style */
-.slots-box { display: flex; justify-content: space-between; margin-bottom: 20px; }
-.slot {
-    width: 30%; height: 100px; background: rgba(0,0,0,0.6);
-    border: 2px dashed #444; border-radius: 10px;
-    display: flex; align-items: center; justify-content: center; overflow: hidden;
+.logo-container {
+    margin-bottom: 35px;
 }
-.fire-glow { border: 2px solid var(--flame-orange); box-shadow: 0 0 15px var(--flame-orange); }
-
-/* Fruits Grid */
-.fruits-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
-    max-height: 400px; overflow-y: auto; padding: 10px;
-}
-.fruit-card {
-    background: rgba(255,255,255,0.05); border-radius: 10px; padding: 10px;
-    border: 1px solid #333; transition: 0.3s;
-}
-.fruit-card img { width: 70px; display: block; margin: 0 auto; }
-.claim-btn {
-    background: #28a745; border: none; color: white; width: 100%;
-    margin-top: 10px; padding: 5px; font-family: 'Luckiest Guy'; cursor: pointer;
+.logo {
+    max-width: 320px;
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
 }
 
-/* Buttons */
+/* --- التحكم في ظهور الخطوات --- */
+.step-container {
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+}
+.step-container.active {
+    display: block;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 { font-size: 2rem; margin-bottom: 15px; color: var(--glow-blue); text-shadow: 0 0 10px rgba(0, 221, 238, 0.3); }
+h3 { font-size: 1.3rem; margin-bottom: 25px; color: #ccc; }
+
+/* --- الأزرار --- */
+.main-btn, .action-btn, .claim-btn {
+    border: none;
+    color: white;
+    font-family: var(--font-family);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border-radius: 12px;
+    text-transform: uppercase;
+    outline: none;
+}
+
 .main-btn {
-    background: linear-gradient(to bottom, #ff9000, #ff5000);
-    border: none; color: white; padding: 15px 40px; font-size: 20px;
-    font-family: 'Luckiest Guy'; border-radius: 8px; cursor: pointer;
-    box-shadow: 0 5px 0 #b33c00; margin-top: 20px; width: 100%;
+    background: linear-gradient(180deg, #50d873, var(--main-green));
+    padding: 16px 45px;
+    font-size: 1.4rem;
+    width: 85%;
+    max-width: 380px;
+    margin: 25px auto;
+    box-shadow: 0 6px 0 #2a7a40, 0 10px 20px rgba(64, 184, 99, 0.4);
+    border: 2px solid #60e883;
+    position: relative;
+    top: 0;
 }
-.main-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #b33c00; }
+.main-btn:hover:not(.disabled) { 
+    background: linear-gradient(180deg, #60e883, var(--main-green-hover));
+    box-shadow: 0 8px 0 #2a7a40, 0 12px 25px rgba(64, 184, 99, 0.5);
+}
+.main-btn:active:not(.disabled) {
+    top: 4px;
+    box-shadow: 0 2px 0 #2a7a40, 0 5px 10px rgba(64, 184, 99, 0.4);
+}
 
-.error-text { color: #ff4444; font-weight: bold; margin-top: 10px; }
-.hidden { display: none !important; }
+.main-btn.disabled {
+    background: #555;
+    border-color: #666;
+    box-shadow: none;
+    color: #aaa;
+    cursor: not-allowed;
+    top: 0;
+}
 
-/* Roblox Profile API Style */
-.avatar-ring { width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--flame-orange); margin: 0 auto; overflow: hidden; }
-.avatar-ring img { width: 100%; }
+.action-btn { padding: 12px 35px; font-size: 1.1rem; min-width: 120px; box-shadow: 0 4px 0 rgba(0,0,0,0.2); }
+.action-btn.green { background: var(--main-green); }
+.action-btn.green:hover { background: var(--main-green-hover); }
+.action-btn.red { background: var(--main-red); }
+.action-btn.red:hover { background: var(--main-red-hover); }
+.action-btn:active { transform: translateY(3px); box-shadow: none; }
 
-.verify-btn {
-    background: #4caf50; border: none; color: white; padding: 20px;
-    font-size: 24px; border-radius: 50px; cursor: pointer; width: 100%;
-    border-bottom: 5px solid #2e7d32; font-family: 'Luckiest Guy';
+.claim-btn {
+    background: var(--main-green);
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    width: 100%;
+    margin-top: 12px;
+    border-radius: 8px;
+    box-shadow: 0 3px 0 #2a7a40;
+}
+.claim-btn:hover { background: var(--main-green-hover); }
+.claim-btn:active { transform: translateY(2px); box-shadow: none; }
+
+/* --- تنسيقات الخطوة 1 --- */
+.slots-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+.slot {
+    width: 90px; height: 90px;
+    border: 2px dashed var(--glow-blue);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold; font-size: 0.9rem; color: var(--glow-blue);
+    background: rgba(0, 221, 238, 0.05);
+    transition: all 0.3s ease;
+}
+.slot.filled {
+    border-style: solid;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: transparent;
+    box-shadow: 0 0 15px var(--glow-blue), inset 0 0 10px var(--glow-blue);
+    background-color: rgba(0, 221, 238, 0.15);
+}
+
+.fruits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 20px 15px;
+    justify-content: center;
+    margin-top: 35px;
+    padding: 10px;
+}
+.fruit-item { position: relative; cursor: pointer; transition: transform 0.2s; }
+.fruit-item:hover { transform: translateY(-5px); }
+
+.fruit-card {
+    width: 100%; aspect-ratio: 1;
+    background: var(--panel-bg);
+    border-radius: 18px;
+    padding: 10px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s ease;
+}
+.fruit-card img { width: 85%; height: 85%; object-fit: contain; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3)); }
+
+/* تأثير النار */
+.fiery-border {
+    border: 2px solid var(--glow-gold);
+    box-shadow: 0 0 10px var(--glow-gold), inset 0 0 5px var(--glow-gold);
+}
+.fruit-item.selected .fruit-card {
+    box-shadow: 0 0 25px var(--glow-gold), inset 0 0 15px var(--glow-gold);
+    border-color: #ffdd55;
+    background: rgba(255, 170, 0, 0.1);
+}
+.fruit-item.selected .claim-btn {
+    background: var(--glow-gold);
+    box-shadow: 0 3px 0 #c98a00;
+    color: #000;
+}
+
+/* --- تنسيقات الخطوة 2 --- */
+.input-group { margin: 35px 0; }
+.input-group input {
+    width: 85%; max-width: 450px;
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    border-radius: 12px;
+    border: 2px solid var(--glow-blue);
+    background: rgba(10, 20, 40, 0.6);
+    color: white;
+    text-align: center;
+    font-family: var(--font-family);
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+.input-group input:focus {
+    border-color: var(--glow-blue);
+    box-shadow: 0 0 15px var(--glow-blue);
+}
+.actions-group { display: flex; justify-content: center; gap: 15px; }
+
+/* --- تنسيقات الخطوة 3 (البروفايل) --- */
+.profile-avatar-container {
+    width: 130px; height: 130px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--glow-blue);
+    box-shadow: 0 0 20px var(--glow-blue);
+    background: var(--panel-bg);
+}
+.profile-avatar-container img { width: 100%; height: 100%; object-fit: cover; }
+#displayName { font-size: 1.8rem; margin-bottom: 25px; direction: ltr; }
+
+.stats-panel {
+    display: flex;
+    background: rgba(0, 221, 238, 0.05);
+    border: 1px solid var(--glow-blue);
+    border-radius: 12px;
+    padding: 15px 10px;
+    justify-content: space-evenly;
+    margin-bottom: 25px;
+    max-width: 400px;
+    margin-left: auto; margin-right: auto;
+}
+.stat-box { text-align: center; }
+.stat-box h3 { font-size: 1.5rem; margin: 5px 0; color: white; }
+.stat-box p { font-size: 0.9rem; color: var(--glow-blue); }
+.stat-icon { font-size: 1.2rem; }
+.stat-separator { width: 1px; background: var(--glow-blue); opacity: 0.3; }
+
+/* Spinner تحميل */
+.spinner {
+    border: 4px solid rgba(255,255,255,0.1);
+    border-top: 4px solid var(--main-green);
+    border-radius: 50%; width: 45px; height: 45px;
+    animation: spin 0.8s linear infinite; margin: 20px auto;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* --- تنسيقات الخطوة 4 --- */
+.robot-btn {
+    margin-top: 40px;
+    font-size: 1.3rem;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.robot-btn::before { content: '🤖'; font-size: 1.6rem; }
+
+/* --- التجاوب مع الجوال --- */
+@media (max-width: 600px) {
+    .fruits-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    .main-btn { font-size: 1.2rem; width: 95%; padding: 14px 20px; }
+    .slot { width: 75px; height: 75px; font-size: 0.8rem; }
+    h2 { font-size: 1.6rem; }
+    .input-group input { font-size: 1rem; }
 }
